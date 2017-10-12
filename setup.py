@@ -20,7 +20,7 @@ ENTRY_POINTS = {
     ]
 }
 DESCRIPTION = (
-    'makes git release using github api v3' +
+    'simply makes a git release using github api v3' +
     ''
 )
 URL = 'https://github.com/chfw/gease'

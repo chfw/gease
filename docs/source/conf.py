@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 DESCRIPTION = (
-    'makes git release using github api v3' +
+    'simply makes a git release using github api v3' +
     ''
 )
 extensions = [

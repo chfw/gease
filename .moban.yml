@@ -11,3 +11,4 @@ targets:
   - "tests/requirements.txt": "tests/requirements.txt.jj2"
   - "docs/source/conf.py": "docs/source/conf.py.jj2"
   - test.sh: test.script.jj2
+  - 'gease/_version.py': 'version.py.jj2'

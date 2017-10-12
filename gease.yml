@@ -13,4 +13,4 @@ license: New BSD
 dependencies:
   - crayons
   - requests
-description: "makes git release using github api v3"
+description: "simply makes a git release using github api v3"
