@@ -1,3 +1,4 @@
+import codecs
 try:
     from setuptools import setup, find_packages
 except ImportError:
@@ -22,11 +23,19 @@ DESCRIPTION = (
     'makes git release using github api v3' +
     ''
 )
+URL = 'https://github.com/chfw/gease'
+DOWNLOAD_URL = '%s/archive/0.0.1.tar.gz' % URL
+FILES = ['README.rst',  'CHANGELOG.rst']
 KEYWORDS = [
+    'python'
 ]
 
 CLASSIFIERS = [
+    'Topic :: Office/Business',
+    'Topic :: Utilities',
+    'Topic :: Software Development :: Libraries',
     'Programming Language :: Python',
+    'Intended Audience :: Developers',
     'Programming Language :: Python :: 2.6',
     'Programming Language :: Python :: 2.7',
     'Programming Language :: Python :: 3.3',
@@ -57,7 +66,7 @@ def read_files(*files):
 
 def read(afile):
     """Read a file into setup"""
-    with open(afile, 'r') as opened_file:
+    with codecs.open(afile, 'r', 'utf-8') as opened_file:
         content = filter_out_test_code(opened_file)
         content = "".join(list(content))
         return content
@@ -80,7 +89,11 @@ def filter_out_test_code(file_handle):
                     found_test_code = False
                     yield line
         else:
-            yield line
+            for keyword in ['|version|', '|today|']:
+                if keyword in line:
+                    break
+            else:
+                yield line
 
 
 if __name__ == '__main__':
@@ -90,7 +103,9 @@ if __name__ == '__main__':
         version=VERSION,
         author_email=EMAIL,
         description=DESCRIPTION,
-        long_description=read_files('README.rst', 'CHANGELOG.rst'),
+        url=URL,
+        download_url=DOWNLOAD_URL,
+        long_description=read_files(*FILES),
         license=LICENSE,
         keywords=KEYWORDS,
         extras_require=EXTRAS_REQUIRE,
