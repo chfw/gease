@@ -1,0 +1,15 @@
+name: "gease"
+organisation: "chfw"
+author: "C. W."
+contact: "wangc_2011@hotmail.com"
+company: "Onni Software Ltd."
+version: "0.0.1"
+release: "0.0.1"
+copyright_year: 2017
+command_line_interface: "gs"
+entry_point: "gease.main:main"
+license: New BSD
+dependencies:
+  - crayons
+  - requests
+description: "makes git release using github api v3"
