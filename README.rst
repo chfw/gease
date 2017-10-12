@@ -5,9 +5,8 @@ gease - gITHUB RELease
 .. image:: https://api.travis-ci.org/chfw/gease.svg?branch=master
    :target: http://travis-ci.org/chfw/gease
 
-.. image:: https://codecov.io/github/chfw/gease/coverage.png
-    :target: https://codecov.io/github/chfw/gease
-
+.. image:: https://codecov.io/gh/chfw/gease/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/chfw/gease
 
 ::
 

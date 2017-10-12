@@ -5,9 +5,8 @@
 .. image:: https://api.travis-ci.org/{{organisation}}/{{name}}.svg?branch=master
    :target: http://travis-ci.org/{{organisation}}/{{name}}
 
-.. image:: https://codecov.io/github/{{organisation}}/{{name}}/coverage.png
-    :target: https://codecov.io/github/{{organisation}}/{{name}}
-
+.. image:: https://codecov.io/gh/chfw/gease/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/chfw/gease
 
 ::
 
