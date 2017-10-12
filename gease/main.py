@@ -5,6 +5,10 @@ import crayons
 from gease._version import __version__, __description__
 from gease.release import EndPoint
 import gease.exceptions as exceptions
+try:
+    FileNotFoundError
+except NameError:
+    FileNotFoundError = IOError
 
 DEFAULT_RELEASE_MESSAGE = "A new release via gease."
 HELP = """%s. version %s
