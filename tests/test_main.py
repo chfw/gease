@@ -9,18 +9,6 @@ TEST_TAG = 'tag'
 SHORT_ARGS = ['gs', 'repo', TEST_TAG]
 
 
-@raises(SystemExit)
-def test_no_args():
-    with mock.patch.object(sys, 'argv', []):
-        main()
-
-
-@raises(SystemExit)
-def test_insufficent_args():
-    with mock.patch.object(sys, 'argv', SHORT_ARGS[:2]):
-        main()
-
-
 class TestMain:
 
     def setUp(self):
@@ -101,3 +89,15 @@ class TestMain:
                 tag_name=TEST_TAG,
                 name=TEST_TAG,
                 body=DEFAULT_RELEASE_MESSAGE)
+
+
+@raises(SystemExit)
+def test_no_args():
+    with mock.patch.object(sys, 'argv', []):
+        main()
+
+
+@raises(SystemExit)
+def test_insufficent_args():
+    with mock.patch.object(sys, 'argv', SHORT_ARGS[:2]):
+        main()

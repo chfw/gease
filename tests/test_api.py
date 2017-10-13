@@ -15,45 +15,48 @@ SAMPLE_422_ERROR = {
 }
 
 
-@patch('gease.rest.requests.Session')
-def test_create(fake_session):
-    fake_session.return_value = MagicMock(
-        post=MagicMock(
-            return_value=MagicMock(
-                status_code=201,
-                json=MagicMock(return_value={})
+class TestApi:
+    def setUp(self):
+        self.patcher = patch('gease.rest.requests.Session')
+        self.fake_session = self.patcher.start()
+
+    def tearDown(self):
+        self.patcher.stop()
+
+    def test_create(self):
+        self.fake_session.return_value = MagicMock(
+            post=MagicMock(
+                return_value=MagicMock(
+                    status_code=201,
+                    json=MagicMock(return_value={})
                 )
             )
         )
-    api = Api('test')
-    api.create('http://localhost/', 'cool')
+        api = Api('test')
+        api.create('http://localhost/', 'cool')
 
-
-@raises(ReleaseExistException)
-@patch('gease.rest.requests.Session')
-def test_existing_release(fake_session):
-    fake_session.return_value = MagicMock(
-        post=MagicMock(
-            return_value=MagicMock(
-                status_code=422,
-                json=MagicMock(return_value=SAMPLE_422_ERROR)
+    @raises(ReleaseExistException)
+    def test_existing_release(self):
+        self.fake_session.return_value = MagicMock(
+            post=MagicMock(
+                return_value=MagicMock(
+                    status_code=422,
+                    json=MagicMock(return_value=SAMPLE_422_ERROR)
                 )
             )
         )
-    api = Api('test')
-    api.create('http://localhost/', 'cool')
+        api = Api('test')
+        api.create('http://localhost/', 'cool')
 
-
-@raises(Exception)
-@patch('gease.rest.requests.Session')
-def test_unknown_error(fake_session):
-    fake_session.return_value = MagicMock(
-        post=MagicMock(
-            return_value=MagicMock(
-                status_code=400,
-                json=MagicMock(return_value={})
+    @raises(Exception)
+    def test_unknown_error(self):
+        self.fake_session.return_value = MagicMock(
+            post=MagicMock(
+                return_value=MagicMock(
+                    status_code=400,
+                    json=MagicMock(return_value={})
                 )
             )
         )
-    api = Api('test')
-    api.create('http://localhost/', 'cool')
+        api = Api('test')
+        api.create('http://localhost/', 'cool')

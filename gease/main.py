@@ -27,7 +27,8 @@ Usage: %s
 
 where:
 
-   release message could be a quoted string or space separate string
+   release message is optional. It could be a quoted string or space separate
+   string
 
 Examples:
 
