@@ -16,7 +16,7 @@ master_doc = 'index'
 
 project = u'gease'
 copyright = u'2017 Onni Software Ltd.'
-version = '0.0.1'
+version = '0.0.0'
 release = '0.0.1'
 exclude_patterns = []
 pygments_style = 'sphinx'

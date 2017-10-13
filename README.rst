@@ -6,7 +6,8 @@ gease - gITHUB RELease
    :target: http://travis-ci.org/chfw/gease
 
 .. image:: https://codecov.io/gh/chfw/gease/branch/master/graph/badge.svg
-  :target: https://codecov.io/gh/chfw/gease
+   :target: https://codecov.io/gh/chfw/gease
+
 
 ::
 
@@ -21,6 +22,7 @@ gease simply makes a git release using github api v3.
 Installation
 ================================================================================
 
+
 You can install it via pip:
 
 .. code-block:: bash
@@ -29,9 +31,38 @@ You can install it via pip:
 
 
 or clone it and install it:
-
 .. code-block:: bash
 
     $ git clone http://github.com/chfw/gease.git
     $ cd gease
     $ python setup.py install
+
+Setup and Configuration
+================================================================================
+
+First, please create `personal access token` for yourself
+`on github<https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/>`.
+
+Next, please create a gease file(`.gease`) in your home directory. Its content should
+be a valid json. Here is an example::
+
+   {"user":"chfw","personal_access_token":"AAFDAFASDFADFADFADFADFADF"}
+
+Command Line
+================================================================================
+
+::
+
+   gease simply makes a git release using github api v3. version 0.0.1
+
+   Usage: gs repo tag [release message]
+
+   where:
+
+      release message could be a quoted string or space separate string
+
+   Examples:
+
+      gs gease v0.0.1 first great release
+      gs gease v0.0.2 "second great release"
+

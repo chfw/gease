@@ -2,18 +2,50 @@ import re
 
 
 class UriTemplate(object):
+    """
+    Yet another implemention of uri template.
 
+    Examples:
+
+       >>> from gease.uritemplate import UriTemplate
+       >>> template = UriTemplate(
+       ...     'https://github.com/repos{/user}{/repo}/releases')
+       >>> template.variables
+       ['user', 'repo']
+       >>> template(user='chfw', repo='gease')
+       'https://github.com/repos/chfw/gease/releases'
+
+    Please note that if any of the two variables are not defined,
+    the template becomes partial and can be instantiated as
+    another UriTemplate.
+
+       >>> template = UriTemplate(
+       ...     'https://github.com/repos{/user}{/repo}/releases')
+       >>> template(user='chfw')
+       'https://github.com/repos/chfw{/repo}/releases'
+       >>> template.is_partial()
+       True
+       >>> template(repo='gease')
+       'https://github.com/repos/chfw/gease/releases'
+       >>> template.is_partial()
+       False
+
+    """
     def __init__(self, url_template_string):
         self.__s = url_template_string
         self.__variables = extract_variables(self.__s)
         for v in self.__variables:
             self.__dict__[v] = None
 
+    @property
     def variables(self):
         return self.__variables
 
     def get_template_string(self):
         return self.__s
+
+    def is_partial(self):
+        return is_partial(self.__str__())
 
     def __call__(self, **keywords):
         for key, value in keywords.items():

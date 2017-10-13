@@ -8,3 +8,7 @@ class NoGeaseConfigFound(Exception):
 
 class AbnormalGithubResponse(Exception):
     pass
+
+
+class UnhandledException(Exception):
+    pass

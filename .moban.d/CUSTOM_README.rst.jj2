@@ -1,13 +1,9 @@
-================================================================================
-{{name}} - gITHUB RELease
-================================================================================
+{% extends "README.rst.jj2" %}
 
-.. image:: https://api.travis-ci.org/{{organisation}}/{{name}}.svg?branch=master
-   :target: http://travis-ci.org/{{organisation}}/{{name}}
+{%block documentation_link%}
+{%endblock%}
 
-.. image:: https://codecov.io/gh/chfw/gease/branch/master/graph/badge.svg
-  :target: https://codecov.io/gh/chfw/gease
-
+{%block features%}
 ::
 
     A long long time ago, ancient developers do not have the command to do a github
@@ -17,21 +13,36 @@
 
 {{name}} {{description}}.
 
+{%endblock%}
 
-Installation
+{%block bottom_block%}
+Setup and Configuration
 ================================================================================
 
-You can install it via pip:
+First, please create `personal access token` for yourself
+`on github<https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/>`.
 
-.. code-block:: bash
+Next, please create a gease file(`.gease`) in your home directory. Its content should
+be a valid json. Here is an example::
 
-    $ pip install {{name}}
+   {"user":"chfw","personal_access_token":"AAFDAFASDFADFADFADFADFADF"}
 
+Command Line
+================================================================================
 
-or clone it and install it:
+::
 
-.. code-block:: bash
+   gease simply makes a git release using github api v3. version 0.0.1
 
-    $ git clone http://github.com/{{organisation}}/{{name}}.git
-    $ cd {{name}}
-    $ python setup.py install
+   Usage: gs repo tag [release message]
+
+   where:
+
+      release message could be a quoted string or space separate string
+
+   Examples:
+
+      gs gease v0.0.1 first great release
+      gs gease v0.0.2 "second great release"
+
+{%endblock%}

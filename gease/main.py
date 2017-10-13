@@ -1,3 +1,14 @@
+"""
+    gease
+    ~~~~~~~~~~~~~~~~~~~
+
+    Bring github release to command line
+
+    :copyright: (c) 2017 by Onni Software Ltd.
+    :license: MIT License, see LICENSE for more details
+
+"""
+
 import os
 import sys
 import json
@@ -10,7 +21,6 @@ try:
 except NameError:
     FileNotFoundError = IOError
 
-DEFAULT_RELEASE_MESSAGE = "A new release via gease."
 HELP = """%s. version %s
 
 Usage: %s
@@ -28,15 +38,24 @@ Examples:
     crayons.magenta(__version__, bold=True),
     crayons.yellow('gs repo tag [release message]', bold=True),
 )
+DEFAULT_GEASE_FILE_NAME = '.gease'
+DEFAULT_RELEASE_MESSAGE = "A new release via gease."
+NOT_ENOUGH_ARGS = 'Not enough arguments'
+KEY_GEASE_USER = 'user'
+KEY_GEASE_TOKEN = 'personal_access_token'
+MESSAGE_FMT_RELEASED = 'Release is created at: %s'
 
 
 def main():
-    user, token = get_token()
     if len(sys.argv) < 3:
         if len(sys.argv) == 2:
-            print('Error: %s' % crayons.red('Not enough arguments'))
+            error(NOT_ENOUGH_ARGS)
         print(HELP)
         sys.exit(-1)
+    try:
+        user, token = get_token()
+    except exceptions.NoGeaseConfigFound as e:
+        error(str(e))
     repo = sys.argv[1]
     tag = sys.argv[2]
     msg = " ".join(sys.argv[3:])
@@ -45,9 +64,11 @@ def main():
     release = EndPoint(token, user, repo)
     try:
         url = release.publish(tag_name=tag, name=tag, body=msg)
-        print('Release is created at: %s' % crayons.green(url))
+        print(MESSAGE_FMT_RELEASED % crayons.green(url))
     except exceptions.ReleaseExistException as e:
-        print('Error: %s' % crayons.red(str(e)))
+        error(str(e))
+    except exceptions.UnhandledException as e:
+        error('Github responded with HTTP %s ' % str(e))
 
 
 def get_token():
@@ -55,14 +76,18 @@ def get_token():
     Find geasefile from user's home folder
     """
     home_dir = os.path.expanduser('~')
-    geasefile = os.path.join(home_dir, '.gease')
+    geasefile = os.path.join(home_dir, DEFAULT_GEASE_FILE_NAME)
     try:
         with open(geasefile, 'r') as config:
             gease = json.load(config)
-            return gease['user'], gease['personal_token']
+            return gease[KEY_GEASE_USER], gease[KEY_GEASE_TOKEN]
     except FileNotFoundError:
         raise exceptions.NoGeaseConfigFound(
             'Cannot find %s' % geasefile)
+
+
+def error(message):
+    print('Error: %s' % crayons.red(message))
 
 
 if __name__ == '__main__':

@@ -1,15 +1,17 @@
 name: "gease"
+full_name: "gITHUB RELease"
 organisation: "chfw"
 author: "C. W."
 contact: "wangc_2011@hotmail.com"
 company: "Onni Software Ltd."
 version: "0.0.1"
 current_version: 0.0.1
-release: "0.0.1"
+release: "0.0.0"
 copyright_year: 2017
 command_line_interface: "gs"
 entry_point: "gease.main:main"
-license: New BSD
+include_doctest: true
+license: MIT
 dependencies:
   - crayons
   - requests
