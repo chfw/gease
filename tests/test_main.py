@@ -2,6 +2,7 @@ import os
 import sys
 import mock
 from gease.main import get_token, main, DEFAULT_RELEASE_MESSAGE
+from gease.main import fatal
 import gease.exceptions as exceptions
 from nose.tools import eq_, raises
 
@@ -68,20 +69,9 @@ class TestMain:
                 name=TEST_TAG,
                 body=release_message)
 
-    def test_existing_release(self):
+    def test_error_response(self):
         create_method = mock.MagicMock(
-            side_effect=exceptions.ReleaseExistException)
-        self.fake_release.return_value = mock.MagicMock(publish=create_method)
-        with mock.patch.object(sys, 'argv', SHORT_ARGS):
-            main()
-            create_method.assert_called_with(
-                tag_name=TEST_TAG,
-                name=TEST_TAG,
-                body=DEFAULT_RELEASE_MESSAGE)
-
-    def test_unknown_protocol_change(self):
-        create_method = mock.MagicMock(
-            side_effect=exceptions.UnhandledException)
+            side_effect=exceptions.AbnormalGithubResponse)
         self.fake_release.return_value = mock.MagicMock(publish=create_method)
         with mock.patch.object(sys, 'argv', SHORT_ARGS):
             main()
@@ -101,3 +91,8 @@ def test_no_args():
 def test_insufficent_args():
     with mock.patch.object(sys, 'argv', SHORT_ARGS[:2]):
         main()
+
+
+@raises(SystemExit)
+def test_fatal_message():
+    fatal('message and we quit')

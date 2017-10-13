@@ -1,6 +1,8 @@
 from nose.tools import raises
 from gease.rest import Api
 from gease.exceptions import ReleaseExistException
+from gease.exceptions import AbnormalGithubResponse
+from gease.exceptions import RepoNotFoundError
 from mock import patch, MagicMock
 
 
@@ -12,6 +14,10 @@ SAMPLE_422_ERROR = {
     ],
     'documentation_url': 'https://.../#create-a-release',
     'message': 'Validation Failed'
+}
+WRONG_CREDENTIALS = {
+    "message": "Bad credentials",
+    "documentation_url": "https://developer.github.com/v3"
 }
 
 
@@ -42,6 +48,32 @@ class TestApi:
                 return_value=MagicMock(
                     status_code=422,
                     json=MagicMock(return_value=SAMPLE_422_ERROR)
+                )
+            )
+        )
+        api = Api('test')
+        api.create('http://localhost/', 'cool')
+
+    @raises(AbnormalGithubResponse)
+    def test_wrong_credentials(self):
+        self.fake_session.return_value = MagicMock(
+            post=MagicMock(
+                return_value=MagicMock(
+                    status_code=401,
+                    json=MagicMock(return_value=WRONG_CREDENTIALS)
+                )
+            )
+        )
+        api = Api('test')
+        api.create('http://localhost/', 'cool')
+
+    @raises(RepoNotFoundError)
+    def test_404(self):
+        self.fake_session.return_value = MagicMock(
+            post=MagicMock(
+                return_value=MagicMock(
+                    status_code=404,
+                    json=MagicMock(return_value=WRONG_CREDENTIALS)
                 )
             )
         )

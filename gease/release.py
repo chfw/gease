@@ -38,3 +38,11 @@ class EndPoint(object):
         except KeyError:
             raise exceptions.AbnormalGithubResponse(
                 MESSAGE_MISSING_KEY)
+        except exceptions.ReleaseExistException:
+            raise exceptions.AbnormalGithubResponse(
+                "Release or tag %s exists" % kwargs['tag_name'])
+        except exceptions.RepoNotFoundError:
+            raise exceptions.AbnormalGithubResponse(
+                "Repository %s does not exist" % self.__template.repo)
+        except exceptions.UnhandledException as e:
+            raise exceptions.AbnormalGithubResponse(str(e))

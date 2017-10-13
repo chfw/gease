@@ -25,6 +25,14 @@ class Api(object):
         if r.status_code == 201:
             return r.json()
         elif r.status_code == 422:
-            raise exceptions.ReleaseExistException(MESSAGE_TAG_EXISTS)
+            raise exceptions.ReleaseExistException()
+        elif r.status_code == 401:
+            response = r.json()
+            message = '%s. Please check your gease file' % response['message']
+            raise exceptions.AbnormalGithubResponse(message)
+        elif r.status_code == 404:
+            raise exceptions.RepoNotFoundError()
         else:
-            raise exceptions.UnhandledException(str(r.status_code))
+            message = 'Github responded with HTTP %s, %s ' % (
+                r.status_code, r.text)
+            raise exceptions.UnhandledException(message)

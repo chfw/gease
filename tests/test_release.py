@@ -31,3 +31,33 @@ class TestRelease:
             )
         release = EndPoint('token', 'owner', 'repo')
         release.publish(hello='world')
+
+    @raises(exceptions.AbnormalGithubResponse)
+    def test_release_exist(self):
+        self.fake_api.return_value = MagicMock(
+            create=MagicMock(
+                side_effect=exceptions.ReleaseExistException
+                )
+            )
+        release = EndPoint('token', 'owner', 'repo')
+        release.publish(hello='world', tag_name='existing tag')
+
+    @raises(exceptions.AbnormalGithubResponse)
+    def test_repo_not_found(self):
+        self.fake_api.return_value = MagicMock(
+            create=MagicMock(
+                side_effect=exceptions.RepoNotFoundError
+                )
+            )
+        release = EndPoint('token', 'owner', 'repo')
+        release.publish(hello='world')
+
+    @raises(exceptions.AbnormalGithubResponse)
+    def test_unhandled_exception(self):
+        self.fake_api.return_value = MagicMock(
+            create=MagicMock(
+                side_effect=exceptions.UnhandledException
+                )
+            )
+        release = EndPoint('token', 'owner', 'repo')
+        release.publish(hello='world')

@@ -2,6 +2,14 @@ class ReleaseExistException(Exception):
     pass
 
 
+class RepoNotFoundError(Exception):
+    pass
+
+
+class GitHubException(Exception):
+    pass
+
+
 class NoGeaseConfigFound(Exception):
     pass
 

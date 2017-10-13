@@ -56,7 +56,10 @@ def main():
     try:
         user, token = get_token()
     except exceptions.NoGeaseConfigFound as e:
-        error(str(e))
+        fatal(str(e))
+    except KeyError as e:
+        fatal("Key %s is not found" % str(e))
+
     repo = sys.argv[1]
     tag = sys.argv[2]
     msg = " ".join(sys.argv[3:])
@@ -66,10 +69,8 @@ def main():
     try:
         url = release.publish(tag_name=tag, name=tag, body=msg)
         print(MESSAGE_FMT_RELEASED % crayons.green(url))
-    except exceptions.ReleaseExistException as e:
+    except exceptions.AbnormalGithubResponse as e:
         error(str(e))
-    except exceptions.UnhandledException as e:
-        error('Github responded with HTTP %s ' % str(e))
 
 
 def get_token():
@@ -89,6 +90,11 @@ def get_token():
 
 def error(message):
     print('Error: %s' % crayons.red(message))
+
+
+def fatal(message):
+    error(message)
+    sys.exit(-1)
 
 
 if __name__ == '__main__':
