@@ -2,7 +2,7 @@
     gease
     ~~~~~~~~~~~~~~~~~~~
 
-    Bring github release to command line
+    Do github release at command line
 
     :copyright: (c) 2017 by Onni Software Ltd.
     :license: MIT License, see LICENSE for more details

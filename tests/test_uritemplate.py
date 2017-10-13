@@ -41,3 +41,14 @@ def test_uri_template_partial_apply():
 def test_is_partial():
     url = '{/abc}'
     assert is_partial(url) is True
+
+
+def test_is_partial_2():
+    url = UriTemplate('{/abc}')
+    assert url.is_partial() is True
+
+
+def test_get_original_template():
+    original = '{/abc}'
+    url = UriTemplate('{/abc}')
+    assert url.get_template_string() is original
