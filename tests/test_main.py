@@ -24,6 +24,7 @@ class TestMain:
         self.patcher2.stop()
         self.patcher.stop()
 
+    # get token
     def test_get_token(self):
         user, token = get_token()
         eq_(user, 'test')
@@ -32,7 +33,27 @@ class TestMain:
     @raises(exceptions.NoGeaseConfigFound)
     def test_no_gease_file(self):
         self.fake_expand.return_value = os.path.join('tests')
-        user, token = get_token()
+        get_token()
+
+    @raises(KeyError)
+    def test_wrong_key(self):
+        self.fake_expand.return_value = os.path.join(
+            'tests', 'fixtures', 'malformed')
+        get_token()
+
+    # main()
+    @raises(SystemExit)
+    def test_key_error_in_main(self):
+        self.fake_expand.return_value = os.path.join(
+            'tests', 'fixtures', 'malformed')
+        with mock.patch.object(sys, 'argv', SHORT_ARGS):
+            main()
+
+    @raises(SystemExit)
+    def test_no_gease_file_in_main(self):
+        self.fake_expand.return_value = os.path.join('tests')
+        with mock.patch.object(sys, 'argv', SHORT_ARGS):
+            main()
 
     def test_good_commands(self):
         create_method = mock.MagicMock(

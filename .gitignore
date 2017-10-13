@@ -93,3 +93,6 @@ ENV/
 commons/
 commons
 .moban.hashes
+
+# mac
+.DS_store

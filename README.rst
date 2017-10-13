@@ -35,8 +35,10 @@ Setup and Configuration
 First, please create `personal access token` for yourself
 `on github <https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/>`_.
 
-Next, please create a gease file(`.gease`) in your home directory. Its content should
-be a valid json. Here is an example::
+.. image:: https://github.com/chfw/gease/raw/master/images/generate_token.png
+
+Next, please create a gease file(`.gease`) in your home directory and place the
+token inside it. Gease file is a simple json file. Here is an example::
 
    {"user":"chfw","personal_access_token":"AAFDAFASDFADFADFADFADFADF"}
 
