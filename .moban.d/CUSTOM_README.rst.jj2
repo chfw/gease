@@ -11,9 +11,10 @@
     Until 2017, they got a specialized command, **{{command_line_interface}}** and realized release management
     is no long a manual job.
 
-{{name}} {{description}}.
+**{{name}}** {{description}}.
 
 .. image:: https://github.com/{{organisation}}/{{name}}/raw/master/images/cli.png
+   :width: 600px
 
 {%endblock%}
 
@@ -49,5 +50,11 @@ Command Line
 
       gs gease v0.0.1 first great release
       gs gease v0.0.2 "second great release"
+
+
+License
+================================================================================
+
+MIT
 
 {%endblock%}
