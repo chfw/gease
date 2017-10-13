@@ -13,6 +13,8 @@
 
 {{name}} {{description}}.
 
+.. image:: https://github.com/{{organisation}}/{{name}}/raw/master/images/cli.png
+
 {%endblock%}
 
 {%block bottom_block%}

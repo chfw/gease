@@ -18,6 +18,8 @@ gease - gITHUB RELease
 
 gease simply makes a git release using github api v3.
 
+.. image:: https://github.com/chfw/gease/raw/master/images/cli.png
+
 
 Installation
 ================================================================================
