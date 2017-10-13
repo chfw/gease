@@ -6,11 +6,12 @@ contact: "wangc_2011@hotmail.com"
 company: "Onni Software Ltd."
 version: "0.0.1"
 current_version: 0.0.1
-release: "0.0.0"
+release: "0.0.1"
 copyright_year: 2017
 command_line_interface: "gs"
 entry_point: "gease.main:main"
 include_doctest: true
+nodocs: true
 license: MIT
 dependencies:
   - crayons

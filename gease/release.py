@@ -1,3 +1,14 @@
+"""
+    release
+    ~~~~~~~~~~~~~~~~~~~
+
+    Make github a release using github api
+
+    :copyright: (c) 2017 by Onni Software Ltd.
+    :license: MIT License, see LICENSE for more details
+
+"""
+
 from gease.rest import Api
 from gease.uritemplate import UriTemplate
 import gease.exceptions as exceptions

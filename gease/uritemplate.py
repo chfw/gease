@@ -1,3 +1,14 @@
+"""
+    uritemplate
+    ~~~~~~~~~~~~~~~~~~~
+
+    template github uri with variables
+
+    :copyright: (c) 2017 by Onni Software Ltd.
+    :license: MIT License, see LICENSE for more details
+
+"""
+
 import re
 
 

@@ -1,8 +1,16 @@
+"""
+    rest
+    ~~~~~~~~~~~~~~~~~~~
+
+    Only use post interface
+
+    :copyright: (c) 2017 by Onni Software Ltd.
+    :license: MIT License, see LICENSE for more details
+
+"""
+
 import requests
 import gease.exceptions as exceptions
-
-
-MESSAGE_TAG_EXISTS = "Tag already exists"
 
 
 class Api(object):

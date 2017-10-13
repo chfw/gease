@@ -23,6 +23,15 @@ Installation
 ================================================================================
 
 
+You can install it via pip:
+
+.. code-block:: bash
+
+    $ pip install gease
+
+
+or clone it and install it:
+
 .. code-block:: bash
 
     $ git clone http://github.com/chfw/gease.git
