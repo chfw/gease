@@ -90,6 +90,7 @@ class TestMain:
                 name=TEST_TAG,
                 body=release_message)
 
+    @raises(SystemExit)
     def test_error_response(self):
         create_method = mock.MagicMock(
             side_effect=exceptions.AbnormalGithubResponse)

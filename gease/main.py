@@ -70,7 +70,7 @@ def main():
         url = release.publish(tag_name=tag, name=tag, body=msg)
         print(MESSAGE_FMT_RELEASED % crayons.green(url))
     except exceptions.AbnormalGithubResponse as e:
-        error(str(e))
+        fatal(str(e))
 
 
 def get_token():
