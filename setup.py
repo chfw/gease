@@ -51,10 +51,10 @@ INSTALL_REQUIRES = [
 PACKAGES = find_packages(exclude=['ez_setup', 'examples', 'tests'])
 EXTRAS_REQUIRE = {
 }
-__PUBLISH_COMMAND = '{0} setup.py sdist bdist_wheel upload -r pypi'.format(
+PUBLISH_COMMAND = '{0} setup.py sdist bdist_wheel upload -r pypi'.format(
     sys.executable)
-__GS_COMMAND = ('gs gease v0.0.2 ' +
-                "Find 0.0.2 in changelog more details")
+GS_COMMAND = ('gs gease v0.0.2 ' +
+              "Find 0.0.2 in changelog more details")
 here = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -83,8 +83,8 @@ class PublishCommand(Command):
             pass
 
         self.status('Building Source and Wheel (universal) distribution…')
-        os.system(__GS_COMMAND)
-        os.system(__PUBLISH_COMMAND)
+        if os.system(GS_COMMAND) == 0:
+            os.system(PUBLISH_COMMAND)
 
         sys.exit()
 
