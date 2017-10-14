@@ -1,17 +1,15 @@
+# Template by setupmobans
+import os
 import codecs
-try:
-    from setuptools import setup, find_packages
-except ImportError:
-    from ez_setup import use_setuptools
-    use_setuptools()
-    from setuptools import setup, find_packages
+from shutil import rmtree
+from setuptools import setup, find_packages, Command
 import sys
 PY2 = sys.version_info[0] == 2
 PY26 = PY2 and sys.version_info[1] < 7
 
 NAME = 'gease'
 AUTHOR = 'C. W.'
-VERSION = '0.0.1'
+VERSION = '0.0.2'
 EMAIL = 'wangc_2011@hotmail.com'
 LICENSE = 'MIT'
 ENTRY_POINTS = {
@@ -24,7 +22,7 @@ DESCRIPTION = (
     ''
 )
 URL = 'https://github.com/chfw/gease'
-DOWNLOAD_URL = '%s/archive/0.0.1.tar.gz' % URL
+DOWNLOAD_URL = '%s/archive/0.0.2.tar.gz' % URL
 FILES = ['README.rst',  'CHANGELOG.rst']
 KEYWORDS = [
     'python'
@@ -53,6 +51,42 @@ INSTALL_REQUIRES = [
 PACKAGES = find_packages(exclude=['ez_setup', 'examples', 'tests'])
 EXTRAS_REQUIRE = {
 }
+__PUBLISH_COMMAND = '{0} setup.py sdist bdist_wheel upload -r pypi'.format(
+    sys.executable)
+__GS_COMMAND = ('gs gease v0.0.2 ' +
+                "Find 0.0.2 in changelog more details")
+here = os.path.abspath(os.path.dirname(__file__))
+
+
+class PublishCommand(Command):
+    """Support setup.py upload."""
+
+    description = 'Build and publish the package on github and pypi'
+    user_options = []
+
+    @staticmethod
+    def status(s):
+        """Prints things in bold."""
+        print('\033[1m{0}\033[0m'.format(s))
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        try:
+            self.status('Removing previous builds…')
+            rmtree(os.path.join(here, 'dist'))
+        except OSError:
+            pass
+
+        self.status('Building Source and Wheel (universal) distribution…')
+        os.system(__GS_COMMAND)
+        os.system(__PUBLISH_COMMAND)
+
+        sys.exit()
 
 
 def read_files(*files):
@@ -115,5 +149,9 @@ if __name__ == '__main__':
         include_package_data=True,
         zip_safe=False,
         entry_points=ENTRY_POINTS,
-        classifiers=CLASSIFIERS
+        classifiers=CLASSIFIERS,
+        setup_requires=['gease'],
+        cmdclass={
+            'publish': PublishCommand,
+        }
     )
