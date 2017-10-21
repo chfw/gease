@@ -8,9 +8,15 @@ class TestRelease:
 
     def setUp(self):
         self.patcher = patch('gease.release.Api')
-        self.fake_api = self.patcher.start()
+        self.fake_api_singleton = self.patcher.start()
+        self.fake_api = MagicMock()
+        self.fake_api_singleton.get_api = self.fake_api
+        self.patcher2 = patch('gease.rest.get_token')
+        self.fake_token = self.patcher2.start()
+        self.fake_token.return_value = 'token'
 
     def tearDown(self):
+        self.patcher2.stop()
         self.patcher.stop()
 
     def test_create_release(self):
@@ -19,7 +25,7 @@ class TestRelease:
                 return_value={'html_url': 'aurl'}
             )
         )
-        release = EndPoint('token', 'owner', 'repo')
+        release = EndPoint('owner', 'repo')
         release.publish(hello='world')
 
     @raises(exceptions.AbnormalGithubResponse)
@@ -29,7 +35,7 @@ class TestRelease:
                 return_value={}
                 )
             )
-        release = EndPoint('token', 'owner', 'repo')
+        release = EndPoint('owner', 'repo')
         release.publish(hello='world')
 
     @raises(exceptions.AbnormalGithubResponse)
@@ -39,7 +45,7 @@ class TestRelease:
                 side_effect=exceptions.ReleaseExistException
                 )
             )
-        release = EndPoint('token', 'owner', 'repo')
+        release = EndPoint('owner', 'repo')
         release.publish(hello='world', tag_name='existing tag')
 
     @raises(exceptions.AbnormalGithubResponse)
@@ -49,7 +55,9 @@ class TestRelease:
                 side_effect=exceptions.RepoNotFoundError
                 )
             )
-        release = EndPoint('token', 'owner', 'repo')
+        release = EndPoint('owner', 'repo')
+        release.republish = MagicMock(
+            side_effect=exceptions.RepoNotFoundError)
         release.publish(hello='world')
 
     @raises(exceptions.AbnormalGithubResponse)
@@ -59,5 +67,5 @@ class TestRelease:
                 side_effect=exceptions.UnhandledException
                 )
             )
-        release = EndPoint('token', 'owner', 'repo')
+        release = EndPoint('owner', 'repo')
         release.publish(hello='world')

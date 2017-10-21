@@ -1,10 +1,11 @@
 import os
 import sys
 import mock
-from gease.main import get_token, main, DEFAULT_RELEASE_MESSAGE
+from gease.main import main
+from gease.constants import DEFAULT_RELEASE_MESSAGE
 from gease.main import fatal
 import gease.exceptions as exceptions
-from nose.tools import eq_, raises
+from nose.tools import raises
 
 TEST_TAG = 'tag'
 SHORT_ARGS = ['gs', 'repo', TEST_TAG]
@@ -13,7 +14,7 @@ SHORT_ARGS = ['gs', 'repo', TEST_TAG]
 class TestMain:
 
     def setUp(self):
-        self.patcher = mock.patch('gease.main.os.path.expanduser')
+        self.patcher = mock.patch('gease.utils.os.path.expanduser')
         self.fake_expand = self.patcher.start()
         self.fake_expand.return_value = os.path.join('tests', 'fixtures')
 
@@ -24,24 +25,6 @@ class TestMain:
         self.patcher2.stop()
         self.patcher.stop()
 
-    # get token
-    def test_get_token(self):
-        user, token = get_token()
-        eq_(user, 'test')
-        eq_(token, 'test')
-
-    @raises(exceptions.NoGeaseConfigFound)
-    def test_no_gease_file(self):
-        self.fake_expand.return_value = os.path.join('tests')
-        get_token()
-
-    @raises(KeyError)
-    def test_wrong_key(self):
-        self.fake_expand.return_value = os.path.join(
-            'tests', 'fixtures', 'malformed')
-        get_token()
-
-    # main()
     @raises(SystemExit)
     def test_key_error_in_main(self):
         self.fake_expand.return_value = os.path.join(

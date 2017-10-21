@@ -9,17 +9,14 @@
 
 """
 
-import os
 import sys
-import json
 import crayons
+
 from gease._version import __version__, __description__
 from gease.release import EndPoint
+import gease.utils as utils
+import gease.constants as constants
 import gease.exceptions as exceptions
-try:
-    FileNotFoundError
-except NameError:
-    FileNotFoundError = IOError
 
 HELP = """%s. version %s
 
@@ -39,53 +36,37 @@ Examples:
     crayons.magenta(__version__, bold=True),
     crayons.yellow('gs repo tag [release message]', bold=True),
 )
-DEFAULT_GEASE_FILE_NAME = '.gease'
-DEFAULT_RELEASE_MESSAGE = "A new release via gease."
-NOT_ENOUGH_ARGS = 'Not enough arguments'
-KEY_GEASE_USER = 'user'
-KEY_GEASE_TOKEN = 'personal_access_token'
-MESSAGE_FMT_RELEASED = 'Release is created at: %s'
 
 
 def main():
     if len(sys.argv) < 3:
         if len(sys.argv) == 2:
-            error(NOT_ENOUGH_ARGS)
+            error(constants.NOT_ENOUGH_ARGS)
         print(HELP)
         sys.exit(-1)
+
+    repo = sys.argv[1]
+    tag = sys.argv[2]
+    msg = " ".join(sys.argv[3:])
     try:
-        user, token = get_token()
+        user = get_default_user()
+        if len(msg) == 0:
+            msg = constants.DEFAULT_RELEASE_MESSAGE
+        release = EndPoint(user, repo)
+        url = release.publish(tag_name=tag, name=tag, body=msg)
+        print(constants.MESSAGE_FMT_RELEASED % crayons.green(url))
+    except exceptions.RepoNotFoundError:
+        fatal("%s does not exist!" % repo)
+    except exceptions.AbnormalGithubResponse as e:
+        fatal(str(e))
     except exceptions.NoGeaseConfigFound as e:
         fatal(str(e))
     except KeyError as e:
         fatal("Key %s is not found" % str(e))
 
-    repo = sys.argv[1]
-    tag = sys.argv[2]
-    msg = " ".join(sys.argv[3:])
-    if len(msg) == 0:
-        msg = DEFAULT_RELEASE_MESSAGE
-    release = EndPoint(token, user, repo)
-    try:
-        url = release.publish(tag_name=tag, name=tag, body=msg)
-        print(MESSAGE_FMT_RELEASED % crayons.green(url))
-    except exceptions.AbnormalGithubResponse as e:
-        fatal(str(e))
 
-
-def get_token():
-    """
-    Find geasefile from user's home folder
-    """
-    home_dir = os.path.expanduser('~')
-    geasefile = os.path.join(home_dir, DEFAULT_GEASE_FILE_NAME)
-    try:
-        with open(geasefile, 'r') as config:
-            gease = json.load(config)
-            return gease[KEY_GEASE_USER], gease[KEY_GEASE_TOKEN]
-    except FileNotFoundError:
-        raise exceptions.NoGeaseConfigFound(
-            'Cannot find %s' % geasefile)
+def get_default_user():
+    return utils.get_info(constants.KEY_GEASE_USER)
 
 
 def error(message):
