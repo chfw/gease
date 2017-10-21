@@ -53,7 +53,7 @@ class EndPoint(object):
             return json_reply[KEY_HTML_URL]
         except exceptions.RepoNotFoundError:
             try:
-                self.republish(**kwargs)
+                return self.republish(**kwargs)
             except exceptions.RepoNotFoundError:
                 raise exceptions.AbnormalGithubResponse(
                     self.__template.repo + " does not exist!")
@@ -82,6 +82,6 @@ def which_org_has(repo):
     for org_info in orgs.get_all_organisations():
         org_repo = Repo(org_info['repos_url'])
         for arepo in org_repo.get_all_repos():
-            if repo in arepo:
+            if repo == arepo['name']:
                 return arepo['login']
     return None

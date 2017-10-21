@@ -1,10 +1,10 @@
-from nose.tools import raises
+from nose.tools import raises, eq_
 from gease.release import EndPoint
 from mock import patch, MagicMock
 import gease.exceptions as exceptions
 
 
-class TestRelease:
+class TestPublish:
 
     def setUp(self):
         self.patcher = patch('gease.release.Api')
@@ -69,3 +69,51 @@ class TestRelease:
             )
         release = EndPoint('owner', 'repo')
         release.publish(hello='world')
+
+
+class TestRepublish:
+
+    def setUp(self):
+        self.patcher = patch('gease.release.Orgs')
+        self.fake_orgs = self.patcher.start()
+        self.patcher2 = patch('gease.release.Repo')
+        self.fake_repo = self.patcher2.start()
+        self.patcher3 = patch('gease.release.Api')
+        self.fake_api_singleton = self.patcher3.start()
+        self.fake_api = MagicMock()
+        self.fake_api_singleton.get_api = self.fake_api
+
+    def tearDown(self):
+        self.patcher3.stop()
+        self.patcher2.stop()
+        self.patcher.stop()
+
+    def test_create_release(self):
+        test_url = 'special url'
+        self.fake_orgs.return_value = MagicMock(
+            get_all_organisations=MagicMock(
+                return_value=[
+                    {
+                        "repos_url": 'repo'
+                    }
+                ]
+            )
+        )
+        self.fake_repo.return_value = MagicMock(
+            get_all_repos=MagicMock(
+                return_value=[
+                    {
+                        "name": "repo",
+                        "login": "zhangfei"
+                    }
+                ]))
+        self.fake_api.return_value = MagicMock(
+            create=MagicMock(
+                return_value={
+                    'html_url': test_url
+                    }
+                )
+            )
+        release = EndPoint('owner', 'repo')
+        ret = release.republish(hello='world')
+        eq_(ret, test_url)
