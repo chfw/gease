@@ -94,7 +94,8 @@ class TestRepublish:
             get_all_organisations=MagicMock(
                 return_value=[
                     {
-                        "repos_url": 'repo'
+                        "repos_url": 'repo',
+                        "login": "zhangfei"
                     }
                 ]
             )
@@ -103,8 +104,7 @@ class TestRepublish:
             get_all_repos=MagicMock(
                 return_value=[
                     {
-                        "name": "repo",
-                        "login": "zhangfei"
+                        "name": "repo"
                     }
                 ]))
         self.fake_api.return_value = MagicMock(

@@ -83,5 +83,5 @@ def which_org_has(repo):
         org_repo = Repo(org_info['repos_url'])
         for arepo in org_repo.get_all_repos():
             if repo == arepo['name']:
-                return arepo['login']
+                return org_info['login']
     return None
