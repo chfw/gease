@@ -2,11 +2,11 @@
 gease - gITHUB RELease
 ================================================================================
 
-.. image:: https://api.travis-ci.org/chfw/gease.svg?branch=master
-   :target: http://travis-ci.org/chfw/gease
+.. image:: https://api.travis-ci.org/moremoban/gease.svg?branch=master
+   :target: http://travis-ci.org/moremoban/gease
 
-.. image:: https://codecov.io/gh/chfw/gease/branch/master/graph/badge.svg
-   :target: https://codecov.io/gh/chfw/gease
+.. image:: https://codecov.io/gh/moremoban/gease/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/moremoban/gease
 
 
 ::
@@ -18,7 +18,7 @@ gease - gITHUB RELease
 
 **gease** simply makes a git release using github api v3.
 
-.. image:: https://github.com/chfw/gease/raw/master/images/cli.png
+.. image:: https://github.com/moremoban/gease/raw/master/images/cli.png
    :width: 600px
 
 
@@ -26,7 +26,7 @@ Installation
 ================================================================================
 
 
-You can install it via pip:
+You can install gease via pip:
 
 .. code-block:: bash
 
@@ -37,7 +37,7 @@ or clone it and install it:
 
 .. code-block:: bash
 
-    $ git clone http://github.com/chfw/gease.git
+    $ git clone https://github.com/moremoban/gease.git
     $ cd gease
     $ python setup.py install
 
@@ -47,7 +47,7 @@ Setup and Configuration
 First, please create `personal access token` for yourself
 `on github <https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/>`_.
 
-.. image:: https://github.com/chfw/gease/raw/master/images/generate_token.png
+.. image:: https://github.com/moremoban/gease/raw/master/images/generate_token.png
 
 Next, please create a gease file(`.gease`) in your home directory and place the
 token inside it. Gease file is a simple json file. Here is an example::

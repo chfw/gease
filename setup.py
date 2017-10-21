@@ -1,9 +1,9 @@
 # Template by setupmobans
 import os
+import sys
 import codecs
 from shutil import rmtree
 from setuptools import setup, find_packages, Command
-import sys
 PY2 = sys.version_info[0] == 2
 PY26 = PY2 and sys.version_info[1] < 7
 
@@ -21,7 +21,7 @@ DESCRIPTION = (
     'simply makes a git release using github api v3' +
     ''
 )
-URL = 'https://github.com/chfw/gease'
+URL = 'https://github.com/moremoban/gease'
 DOWNLOAD_URL = '%s/archive/0.0.2.tar.gz' % URL
 FILES = ['README.rst',  'CHANGELOG.rst']
 KEYWORDS = [
@@ -54,7 +54,7 @@ EXTRAS_REQUIRE = {
 PUBLISH_COMMAND = '{0} setup.py sdist bdist_wheel upload -r pypi'.format(
     sys.executable)
 GS_COMMAND = ('gs gease v0.0.2 ' +
-              "Find 0.0.2 in changelog more details")
+              "Find 0.0.2 in changelog for more details")
 here = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -77,12 +77,12 @@ class PublishCommand(Command):
 
     def run(self):
         try:
-            self.status('Removing previous builds…')
+            self.status('Removing previous builds...')
             rmtree(os.path.join(here, 'dist'))
         except OSError:
             pass
 
-        self.status('Building Source and Wheel (universal) distribution…')
+        self.status('Building Source and Wheel (universal) distribution...')
         if os.system(GS_COMMAND) == 0:
             os.system(PUBLISH_COMMAND)
 
