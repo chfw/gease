@@ -54,6 +54,13 @@ token inside it. Gease file is a simple json file. Here is an example::
 
    {"user":"chfw","personal_access_token":"AAFDAFASDFADFADFADFADFADF"}
 
+Organisation
+----------------
+
+In order to make a release for your organisation, "read:org" right is required:
+
+.. image:: https://user-images.githubusercontent.com/4280312/33229231-0220f60e-d1c3-11e7-8c95-3e1207415929.png
+
 Command Line
 ================================================================================
 
