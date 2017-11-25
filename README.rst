@@ -48,11 +48,17 @@ First, please create `personal access token` for yourself
 `on github <https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/>`_.
 
 .. image:: https://github.com/moremoban/gease/raw/master/images/generate_token.png
-
 Next, please create a gease file(`.gease`) in your home directory and place the
 token inside it. Gease file is a simple json file. Here is an example::
 
    {"user":"chfw","personal_access_token":"AAFDAFASDFADFADFADFADFADF"}
+
+Organisation
+----------------
+
+In order to make a release for your organisation, "read:org" right is required:
+
+.. image:: https://user-images.githubusercontent.com/4280312/33229231-0220f60e-d1c3-11e7-8c95-3e1207415929.png
 
 Command Line
 ================================================================================
