@@ -2,11 +2,12 @@
 gease - gITHUB RELease
 ================================================================================
 
-.. image:: https://api.travis-ci.org/moremoban/gease.svg?branch=master
+.. image:: https://api.travis-ci.org/moremoban/gease.svg
    :target: http://travis-ci.org/moremoban/gease
 
-.. image:: https://codecov.io/gh/moremoban/gease/branch/master/graph/badge.svg
-   :target: https://codecov.io/gh/moremoban/gease
+.. image:: https://codecov.io/github/moremoban/gease/coverage.png
+   :target: https://codecov.io/github/moremoban/gease
+
 
 
 ::
@@ -85,4 +86,3 @@ License
 ================================================================================
 
 MIT
-

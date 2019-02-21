@@ -1,11 +1,31 @@
-# Template by setupmobans
+#!/usr/bin/env python3
+
+# Template by pypi-mobans
 import os
 import sys
 import codecs
+import locale
+import platform
 from shutil import rmtree
-from setuptools import setup, find_packages, Command
+
+from setuptools import Command, setup, find_packages
+
 PY2 = sys.version_info[0] == 2
 PY26 = PY2 and sys.version_info[1] < 7
+PY33 = sys.version_info < (3, 4)
+
+# Work around mbcs bug in distutils.
+# http://bugs.python.org/issue10945
+# This work around is only if a project supports Python < 3.4
+
+# Work around for locale not being set
+try:
+    lc = locale.getlocale()
+    pf = platform.system()
+    if pf != 'Windows' and lc == (None, None):
+        locale.setlocale(locale.LC_ALL, 'C.UTF-8')
+except (ValueError, UnicodeError, locale.Error):
+    locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 NAME = 'gease'
 AUTHOR = 'C. W.'
@@ -15,22 +35,19 @@ LICENSE = 'MIT'
 ENTRY_POINTS = {
     'console_scripts': [
         'gs = gease.main:main'
-    ]
+    ],
 }
 DESCRIPTION = (
-    'simply makes a git release using github api v3' +
-    ''
+    'simply makes a git release using github api v3'
 )
 URL = 'https://github.com/moremoban/gease'
 DOWNLOAD_URL = '%s/archive/0.0.3.tar.gz' % URL
-FILES = ['README.rst',  'CHANGELOG.rst']
+FILES = ['README.rst', 'CHANGELOG.rst']
 KEYWORDS = [
-    'python'
+    'python',
 ]
 
 CLASSIFIERS = [
-    'Topic :: Office/Business',
-    'Topic :: Utilities',
     'Topic :: Software Development :: Libraries',
     'Programming Language :: Python',
     'Intended Audience :: Developers',
@@ -46,6 +63,7 @@ INSTALL_REQUIRES = [
     'crayons',
     'requests',
 ]
+SETUP_COMMANDS = {}
 
 
 PACKAGES = find_packages(exclude=['ez_setup', 'examples', 'tests'])
@@ -84,6 +102,8 @@ class PublishCommand(Command):
         try:
             self.status('Removing previous builds...')
             rmtree(os.path.join(HERE, 'dist'))
+            rmtree(os.path.join(HERE, 'build'))
+            rmtree(os.path.join(HERE, 'gease.egg-info'))
         except OSError:
             pass
 
@@ -98,6 +118,11 @@ class PublishCommand(Command):
                 self.status(UPLOAD_FAILED_MSG % PUBLISH_COMMAND)
 
         sys.exit()
+
+
+SETUP_COMMANDS.update({
+    'publish': PublishCommand
+})
 
 
 def has_gease():
@@ -124,7 +149,8 @@ def read_files(*files):
 
 def read(afile):
     """Read a file into setup"""
-    with codecs.open(afile, 'r', 'utf-8') as opened_file:
+    the_relative_file = os.path.join(HERE, afile)
+    with codecs.open(the_relative_file, 'r', 'utf-8') as opened_file:
         content = filter_out_test_code(opened_file)
         content = "".join(list(content))
         return content
@@ -156,6 +182,7 @@ def filter_out_test_code(file_handle):
 
 if __name__ == '__main__':
     setup(
+        test_suite="tests",
         name=NAME,
         author=AUTHOR,
         version=VERSION,
@@ -174,7 +201,5 @@ if __name__ == '__main__':
         zip_safe=False,
         entry_points=ENTRY_POINTS,
         classifiers=CLASSIFIERS,
-        cmdclass={
-            'publish': PublishCommand,
-        }
+        cmdclass=SETUP_COMMANDS
     )
