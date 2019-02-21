@@ -14,7 +14,7 @@ gease - gITHUB RELease
 
     A long long time ago, ancient developers do not have the command to do a github
     release. They relied on mouse clicks and web user interface to do their releases.
-    Until 2017, they got a specialized command, **gs** and realized release management
+    Until 2017, they got a specialized command, **gease** and realized release management
     is no long a manual job.
 
 **gease** simply makes a git release using github api v3.
