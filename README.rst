@@ -7,7 +7,14 @@ gease - gITHUB RELease
 
 .. image:: https://codecov.io/github/moremoban/gease/coverage.png
    :target: https://codecov.io/github/moremoban/gease
+.. image:: https://badge.fury.io/py/gease.svg
+   :target: https://pypi.org/project/gease
 
+.. image:: https://pepy.tech/badge/gease/month
+   :target: https://pepy.tech/project/gease/month
+
+.. image:: https://img.shields.io/github/stars/moremoban/gease.svg?style=social&maxAge=3600&label=Star
+    :target: https://github.com/moremoban/gease/stargazers
 
 
 ::
