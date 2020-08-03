@@ -12,3 +12,6 @@ targets:
   - test.sh: test.script.jj2
   - 'gease/_version.py': 'version.py.jj2'
   - ".github/workflows/pythonpublish.yml": "pythonpublish.yml"
+  - output: CHANGELOG.rst
+    configuration: changelog.yml
+    template: CHANGELOG.rst.jj2

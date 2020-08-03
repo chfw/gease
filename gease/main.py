@@ -8,7 +8,6 @@
     :license: MIT License, see LICENSE for more details
 
 """
-
 import sys
 import crayons
 

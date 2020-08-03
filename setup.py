@@ -32,13 +32,13 @@ except (ValueError, UnicodeError, locale.Error):
 
 NAME = "gease"
 AUTHOR = "C. W."
-VERSION = "0.0.3"
+VERSION = "0.0.4"
 EMAIL = "wangc_2011@hotmail.com"
 LICENSE = "MIT"
 ENTRY_POINTS = {
     "console_scripts": [
         "gease = gease.main:main",
-        "fork = gease.fork:main",
+        "contributors = gease.contributors:main",
     ],
 }
 DESCRIPTION = (
