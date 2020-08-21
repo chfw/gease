@@ -54,13 +54,13 @@ class EndPoint(object):
 
     def get_all_contributors(self):
         json_reply = self.__client.get(self.url)
-        print(json_reply)
         contributors = []
         for user in json_reply:
             user_details = self.__client.get(user["url"])
-            contributors.append(
-                {"name": user_details["name"], "url": user["url"]}
-            )
+            user_name = user_details["name"]
+            if user_name is None:
+                user_name = user["login"]
+            contributors.append({"name": user_name, "url": user["url"]})
         return contributors
 
 
