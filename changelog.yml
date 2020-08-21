@@ -4,6 +4,12 @@ releases:
   - changes:
       - action: Added
         details:
+          - use login name if full name of the contributor is null
+    date: 21.08.2020
+    version: 0.0.5
+  - changes:
+      - action: Added
+        details:
           - get contributors of a github repo
     date: 21.08.2020
     version: 0.0.4
