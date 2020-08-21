@@ -42,6 +42,7 @@ class UriTemplate(object):
        False
 
     """
+
     def __init__(self, url_template_string):
         self.__s = url_template_string
         self.__variables = extract_variables(self.__s)
@@ -72,14 +73,14 @@ class UriTemplate(object):
         a_new_dict = {}
         for v in self.__variables:
             if self.__dict__[v]:
-                a_new_dict['/' + v] = '/' + self.__dict__[v]
+                a_new_dict["/" + v] = "/" + self.__dict__[v]
             else:
-                a_new_dict['/' + v] = '{/' + v + '}'
+                a_new_dict["/" + v] = "{/" + v + "}"
         return a_new_dict
 
 
 def extract_variables(url_template_string):
-    results = re.findall('\{/([^}]+)\}', url_template_string)
+    results = re.findall("\{/([^}]+)\}", url_template_string)
     return results
 
 

@@ -15,3 +15,5 @@ targets:
   - output: CHANGELOG.rst
     configuration: changelog.yml
     template: CHANGELOG.rst.jj2
+  - Makefile: Makefile.jj2
+  - format.sh: format.sh.jj2

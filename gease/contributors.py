@@ -3,19 +3,19 @@
     ~~~~~~
     get a list of contributors
 
-    :copyright: (c) 2017 by Onni Software Ltd.
+    :copyright: (c) 2020 by Onni Software Ltd.
     :license: MIT License, see LICENSE for more details
 
 """
 import sys
+
 import crayons
 
-from gease._version import __version__, __description__
 import gease.utils as utils
 import gease.constants as constants
 import gease.exceptions as exceptions
-
 from gease.rest import Api
+from gease._version import __version__, __description__
 from gease.uritemplate import UriTemplate
 
 HELP = """%s. version %s
@@ -23,11 +23,11 @@ HELP = """%s. version %s
 Usage: %s
 
 """ % (
-    crayons.yellow('contributors ' + __description__),
+    crayons.yellow("contributors " + __description__),
     crayons.magenta(__version__, bold=True),
-    crayons.yellow('contributors user/org repo', bold=True),
+    crayons.yellow("contributors user/org repo", bold=True),
 )
-REPO_URL = 'https://api.github.com/repos{/owner}{/repo}/contributors'
+REPO_URL = "https://api.github.com/repos{/owner}{/repo}/contributors"
 
 
 class EndPoint(object):
@@ -47,12 +47,13 @@ class EndPoint(object):
 
     def get_all_contributors(self):
         json_reply = self.__client.get(self.url)
+        print(json_reply)
         contributors = []
         for user in json_reply:
-            user_details = self.__client.get(user['url'])
-            contributors.append({
-                "name": user_details['name'],
-                "url": user['url']})
+            user_details = self.__client.get(user["url"])
+            contributors.append(
+                {"name": user_details["name"], "url": user["url"]}
+            )
         return contributors
 
 
@@ -84,7 +85,7 @@ def get_default_user():
 
 
 def error(message):
-    print('Error: %s' % crayons.red(message))
+    print("Error: %s" % crayons.red(message))
 
 
 def fatal(message):
@@ -92,5 +93,5 @@ def fatal(message):
     sys.exit(-1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

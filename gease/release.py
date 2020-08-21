@@ -9,16 +9,15 @@
 
 """
 
-from gease.rest import Api
+import gease.exceptions as exceptions
 from gease.orgs import EndPoint as Orgs
 from gease.repo import EndPoint as Repo
+from gease.rest import Api
 from gease.uritemplate import UriTemplate
-import gease.exceptions as exceptions
 
-
-RELEASE_URL = 'https://api.github.com/repos{/owner}{/repo}/releases'
-KEY_HTML_URL = 'html_url'
-MESSAGE_MISSING_KEY = 'No %s in github repsonse' % KEY_HTML_URL
+RELEASE_URL = "https://api.github.com/repos{/owner}{/repo}/releases"
+KEY_HTML_URL = "html_url"
+MESSAGE_MISSING_KEY = "No %s in github repsonse" % KEY_HTML_URL
 
 
 class EndPoint(object):
@@ -28,6 +27,7 @@ class EndPoint(object):
     More documentation is available at
     https://developer.github.com/v3/repos/releases/
     """
+
     def __init__(self, owner, repo):
         self.__template = UriTemplate(RELEASE_URL)
         self.__template.owner = owner
@@ -56,13 +56,14 @@ class EndPoint(object):
                 return self.republish(**kwargs)
             except exceptions.RepoNotFoundError:
                 raise exceptions.AbnormalGithubResponse(
-                    self.__template.repo + " does not exist!")
+                    self.__template.repo + " does not exist!"
+                )
         except KeyError:
-            raise exceptions.AbnormalGithubResponse(
-                MESSAGE_MISSING_KEY)
+            raise exceptions.AbnormalGithubResponse(MESSAGE_MISSING_KEY)
         except exceptions.ReleaseExistException:
             raise exceptions.AbnormalGithubResponse(
-                "Release or tag %s exists" % kwargs['tag_name'])
+                "Release or tag %s exists" % kwargs["tag_name"]
+            )
         except exceptions.UnhandledException as e:
             raise exceptions.AbnormalGithubResponse(str(e))
 
@@ -80,8 +81,8 @@ class EndPoint(object):
 def which_org_has(repo):
     orgs = Orgs()
     for org_info in orgs.get_all_organisations():
-        org_repo = Repo(org_info['repos_url'])
+        org_repo = Repo(org_info["repos_url"])
         for arepo in org_repo.get_all_repos():
-            if repo == arepo['name']:
-                return org_info['login']
+            if repo == arepo["name"]:
+                return org_info["login"]
     return None

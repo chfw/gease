@@ -9,7 +9,8 @@
 """
 
 from gease.rest import Api
-REPO_URL = 'https://api.github.com/user/orgs'
+
+REPO_URL = "https://api.github.com/user/orgs"
 
 
 class EndPoint(object):

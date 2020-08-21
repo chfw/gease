@@ -1,29 +1,29 @@
+from mock import MagicMock, patch
 from nose.tools import raises
-from gease.rest import Api
-from gease.exceptions import ReleaseExistException
-from gease.exceptions import AbnormalGithubResponse
-from gease.exceptions import RepoNotFoundError
-from mock import patch, MagicMock
 
+from gease.rest import Api
+from gease.exceptions import (
+    RepoNotFoundError,
+    ReleaseExistException,
+    AbnormalGithubResponse,
+)
 
 SAMPLE_422_ERROR = {
-    'errors': [
-        {'code': 'already_exists',
-         'field': 'tag_name',
-         'resource': 'Release'}
+    "errors": [
+        {"code": "already_exists", "field": "tag_name", "resource": "Release"}
     ],
-    'documentation_url': 'https://.../#create-a-release',
-    'message': 'Validation Failed'
+    "documentation_url": "https://.../#create-a-release",
+    "message": "Validation Failed",
 }
 WRONG_CREDENTIALS = {
     "message": "Bad credentials",
-    "documentation_url": "https://developer.github.com/v3"
+    "documentation_url": "https://developer.github.com/v3",
 }
 
 
 class TestApi:
     def setUp(self):
-        self.patcher = patch('gease.rest.requests.Session')
+        self.patcher = patch("gease.rest.requests.Session")
         self.fake_session = self.patcher.start()
 
     def tearDown(self):
@@ -33,13 +33,12 @@ class TestApi:
         self.fake_session.return_value = MagicMock(
             post=MagicMock(
                 return_value=MagicMock(
-                    status_code=201,
-                    json=MagicMock(return_value={})
+                    status_code=201, json=MagicMock(return_value={})
                 )
             )
         )
-        api = Api('test')
-        api.create('http://localhost/', 'cool')
+        api = Api("test")
+        api.create("http://localhost/", "cool")
 
     @raises(ReleaseExistException)
     def test_existing_release(self):
@@ -47,12 +46,12 @@ class TestApi:
             post=MagicMock(
                 return_value=MagicMock(
                     status_code=422,
-                    json=MagicMock(return_value=SAMPLE_422_ERROR)
+                    json=MagicMock(return_value=SAMPLE_422_ERROR),
                 )
             )
         )
-        api = Api('test')
-        api.create('http://localhost/', 'cool')
+        api = Api("test")
+        api.create("http://localhost/", "cool")
 
     @raises(AbnormalGithubResponse)
     def test_wrong_credentials(self):
@@ -60,12 +59,12 @@ class TestApi:
             post=MagicMock(
                 return_value=MagicMock(
                     status_code=401,
-                    json=MagicMock(return_value=WRONG_CREDENTIALS)
+                    json=MagicMock(return_value=WRONG_CREDENTIALS),
                 )
             )
         )
-        api = Api('test')
-        api.create('http://localhost/', 'cool')
+        api = Api("test")
+        api.create("http://localhost/", "cool")
 
     @raises(RepoNotFoundError)
     def test_404(self):
@@ -73,22 +72,21 @@ class TestApi:
             post=MagicMock(
                 return_value=MagicMock(
                     status_code=404,
-                    json=MagicMock(return_value=WRONG_CREDENTIALS)
+                    json=MagicMock(return_value=WRONG_CREDENTIALS),
                 )
             )
         )
-        api = Api('test')
-        api.create('http://localhost/', 'cool')
+        api = Api("test")
+        api.create("http://localhost/", "cool")
 
     @raises(Exception)
     def test_unknown_error(self):
         self.fake_session.return_value = MagicMock(
             post=MagicMock(
                 return_value=MagicMock(
-                    status_code=400,
-                    json=MagicMock(return_value={})
+                    status_code=400, json=MagicMock(return_value={})
                 )
             )
         )
-        api = Api('test')
-        api.create('http://localhost/', 'cool')
+        api = Api("test")
+        api.create("http://localhost/", "cool")
