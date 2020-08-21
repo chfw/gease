@@ -17,14 +17,8 @@ gease - gITHUB RELease
     :target: https://github.com/moremoban/gease/stargazers
 
 
-::
 
-    A long long time ago, ancient developers do not have the command to do a github
-    release. They relied on mouse clicks and web user interface to do their releases.
-    Until 2017, they got a specialized command, **gease** and realized release management
-    is no long a manual job.
-
-**gease** simply makes a git release using github api v3.
+It's understood that you may use github cli, however **gease** simply makes a git release using github api v3.
 
 .. image:: https://github.com/moremoban/gease/raw/master/images/cli.png
    :width: 600px
@@ -87,6 +81,21 @@ Command Line
 
       gs gease v0.0.1 first great release
       gs gease v0.0.2 "second great release"
+
+
+
+::
+contributors list the contributors of a repo. version 0.0.4
+
+Usage: contributors user/org repo
+
+Where:
+   user/org is the your github username or orgnisation name
+   repo is the repository name
+
+Examples:
+
+    contributors pyexcel pyexcel-io
 
 
 License
