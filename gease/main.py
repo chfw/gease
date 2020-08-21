@@ -8,15 +8,15 @@
     :license: MIT License, see LICENSE for more details
 
 """
-
 import sys
+
 import crayons
 
-from gease._version import __version__, __description__
-from gease.release import EndPoint
 import gease.utils as utils
 import gease.constants as constants
 import gease.exceptions as exceptions
+from gease.release import EndPoint
+from gease._version import __version__, __description__
 
 HELP = """%s. version %s
 
@@ -32,9 +32,9 @@ Examples:
    gs gease v0.0.1 first great release
    gs gease v0.0.2 "second great release"
 """ % (
-    crayons.yellow('gease ' + __description__),
+    crayons.yellow("gease " + __description__),
     crayons.magenta(__version__, bold=True),
-    crayons.yellow('gs repo tag [release message]', bold=True),
+    crayons.yellow("gs repo tag [release message]", bold=True),
 )
 
 
@@ -72,7 +72,7 @@ def get_default_user():
 
 
 def error(message):
-    print('Error: %s' % crayons.red(message))
+    print("Error: %s" % crayons.red(message))
 
 
 def fatal(message):
@@ -80,5 +80,5 @@ def fatal(message):
     sys.exit(-1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

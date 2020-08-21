@@ -1,6 +1,7 @@
 configuration:
   template_dir:
-  - "setupmobans/templates"
+  - "git://github.com/moremoban/pypi-mobans.git?submodule=true&brach=dev!/templates"
+  - "git://github.com/moremoban/pypi-mobans.git?submodule=true&brach=dev!/statics"
   - ".moban.d"
   configuration: gease.yml
 targets:
@@ -10,3 +11,10 @@ targets:
   - "tests/requirements.txt": "tests/requirements.txt.jj2"
   - test.sh: test.script.jj2
   - 'gease/_version.py': 'version.py.jj2'
+  - ".github/workflows/pythonpublish.yml": "pythonpublish.yml"
+  - output: CHANGELOG.rst
+    configuration: changelog.yml
+    template: CHANGELOG.rst.jj2
+  - Makefile: Makefile.jj2
+  - format.sh: format.sh.jj2
+  - lint.sh: lint.script.jj2

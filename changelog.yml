@@ -1,0 +1,27 @@
+name: gease
+organisation: moremoban
+releases:
+  - changes:
+      - action: Added
+        details:
+          - get contributors of a github repo
+    date: 21.08.2020
+    version: 0.0.4
+  - changes:
+      - action: Added
+        details:
+          - "`#1`: release repos of the organisation that you belong to."
+    date: 25.11.2017
+    version: 0.0.3
+  - changes:
+      - action: Added
+        details:
+          - quit with -1 if github responds with error
+    date: 15.10.2017
+    version: 0.0.2
+  - changes:
+      - action: Added
+        details:
+          - First release.
+    date: 13.10.2017
+    version: 0.0.1

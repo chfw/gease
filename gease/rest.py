@@ -20,12 +20,14 @@ class Api(object):
     """
     A session holder so that each request shares the same token
     """
+
     __instance = None
 
     def __init__(self, personal_access_token):
         self.__session = requests.Session()
-        self.__session.headers.update({
-            'Authorization': 'token %s' % personal_access_token})
+        self.__session.headers.update(
+            {"Authorization": "token %s" % personal_access_token}
+        )
 
     def create(self, url, data):
         """
@@ -38,13 +40,15 @@ class Api(object):
             raise exceptions.ReleaseExistException()
         elif r.status_code == 401:
             response = r.json()
-            message = '%s. Please check your gease file' % response['message']
+            message = "%s. Please check your gease file" % response["message"]
             raise exceptions.AbnormalGithubResponse(message)
         elif r.status_code == 404:
             raise exceptions.RepoNotFoundError()
         else:
-            message = 'Github responded with HTTP %s, %s ' % (
-                r.status_code, r.text)
+            message = "Github responded with HTTP %s, %s " % (
+                r.status_code,
+                r.text,
+            )
             raise exceptions.UnhandledException(message)
 
     def get(self, url):
