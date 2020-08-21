@@ -17,3 +17,4 @@ targets:
     template: CHANGELOG.rst.jj2
   - Makefile: Makefile.jj2
   - format.sh: format.sh.jj2
+  - lint.sh: lint.script.jj2
