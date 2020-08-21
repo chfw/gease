@@ -15,15 +15,22 @@ import gease.utils as utils
 import gease.constants as constants
 import gease.exceptions as exceptions
 from gease.rest import Api
-from gease._version import __version__, __description__
+from gease._version import __version__
 from gease.uritemplate import UriTemplate
 
 HELP = """%s. version %s
 
 Usage: %s
 
+Where:
+   user/org is the your github username or orgnisation name
+   repo is the repository name
+
+Examples:
+
+    contributors pyexcel pyexcel-io
 """ % (
-    crayons.yellow("contributors " + __description__),
+    crayons.yellow("contributors list the contributors of a repo"),
     crayons.magenta(__version__, bold=True),
     crayons.yellow("contributors user/org repo", bold=True),
 )
