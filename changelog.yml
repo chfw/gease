@@ -2,6 +2,12 @@ name: gease
 organisation: moremoban
 releases:
   - changes:
+      - action: Updated
+        details:
+          - "`#1`: access repo contributors without github token."
+    date: 26.08.2020
+    version: 0.0.6
+  - changes:
       - action: Added
         details:
           - use login name if full name of the contributor is null
