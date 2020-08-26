@@ -5,7 +5,7 @@ from gease.contributors import EndPoint
 
 
 class TestPublish:
-    @patch("gease.contributors.Api.get_api")
+    @patch("gease.contributors.Api.get_public_api")
     def test_all_contributors(self, fake_api):
         sample_reply = [
             {"login": "howdy", "url": "https://api.github.com/users/howdy",}
@@ -27,7 +27,7 @@ class TestPublish:
             ],
         )
 
-    @patch("gease.contributors.Api.get_api")
+    @patch("gease.contributors.Api.get_public_api")
     def test_no_names(self, fake_api):
         sample_reply = [
             {"login": "howdy", "url": "https://api.github.com/users/howdy",}

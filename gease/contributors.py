@@ -46,7 +46,7 @@ class EndPoint(object):
         self.__template = UriTemplate(REPO_URL)
         self.__template.owner = owner
         self.__template.repo = repo
-        self.__client = Api.get_api()
+        self.__client = Api.get_public_api()
 
     @property
     def url(self):

@@ -25,9 +25,10 @@ class Api(object):
 
     def __init__(self, personal_access_token):
         self.__session = requests.Session()
-        self.__session.headers.update(
-            {"Authorization": "token %s" % personal_access_token}
-        )
+        if personal_access_token:
+            self.__session.headers.update(
+                {"Authorization": "token %s" % personal_access_token}
+            )
 
     def create(self, url, data):
         """
@@ -60,6 +61,12 @@ class Api(object):
         if cls.__instance is None:
             token = get_token()
             cls.__instance = cls(token)
+        return cls.__instance
+
+
+    @classmethod
+    def get_public_api(cls):
+        cls.__instance = cls(None)
         return cls.__instance
 
 
