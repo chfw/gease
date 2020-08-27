@@ -3,6 +3,7 @@ from nose.tools import raises
 
 from gease.rest import Api
 from gease.exceptions import (
+    UrlNotFound,
     RepoNotFoundError,
     ReleaseExistException,
     AbnormalGithubResponse,
@@ -90,3 +91,11 @@ class TestApi:
         )
         api = Api("test")
         api.create("http://localhost/", "cool")
+
+    @raises(UrlNotFound)
+    def test_get_unknown_url(self):
+        self.fake_session.return_value = MagicMock(
+            get=MagicMock(side_effect=UrlNotFound)
+        )
+        api = Api("test")
+        api.get("s")
