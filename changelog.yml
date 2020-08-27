@@ -4,6 +4,12 @@ releases:
   - changes:
       - action: Updated
         details:
+          - "raise UrlNotFound when request a non-existent url"
+    date: 28.08.2020
+    version: 0.0.7
+  - changes:
+      - action: Updated
+        details:
           - "`#1`: access repo contributors without github token."
     date: 26.08.2020
     version: 0.0.6

@@ -20,3 +20,7 @@ class AbnormalGithubResponse(Exception):
 
 class UnhandledException(Exception):
     pass
+
+
+class UrlNotFound(Exception):
+    pass

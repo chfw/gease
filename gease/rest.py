@@ -54,7 +54,10 @@ class Api(object):
 
     def get(self, url):
         r = self.__session.get(url)
-        return r.json()
+        if r.status_code == 200:
+            return r.json()
+        elif r.status_code == 404:
+            raise exceptions.UrlNotFound(f"{url} does not exist")
 
     @classmethod
     def get_api(cls):
@@ -62,7 +65,6 @@ class Api(object):
             token = get_token()
             cls.__instance = cls(token)
         return cls.__instance
-
 
     @classmethod
     def get_public_api(cls):
