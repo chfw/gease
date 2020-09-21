@@ -24,3 +24,7 @@ class UnhandledException(Exception):
 
 class UrlNotFound(Exception):
     pass
+
+
+class Forbidden(Exception):
+    pass

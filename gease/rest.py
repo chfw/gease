@@ -58,6 +58,10 @@ class Api(object):
             return r.json()
         elif r.status_code == 404:
             raise exceptions.UrlNotFound(f"{url} does not exist")
+        elif r.status_code == 403:
+            raise exceptions.Forbidden(f"{url} does not exist")
+        else:
+            raise exceptions.UnhandledException(f"{r.status_code} is received")
 
     @classmethod
     def get_api(cls):
