@@ -11,7 +11,12 @@ class TestPublish:
             {"login": "howdy", "url": "https://api.github.com/users/howdy"}
         ]
         fake_api.return_value = MagicMock(
-            get=MagicMock(side_effect=[sample_reply, {"name": "hello world"}])
+            get=MagicMock(
+                side_effect=[
+                    sample_reply,
+                    {"name": "hello world", "html_url": ""},
+                ]
+            )
         )
 
         repo = EndPoint("test", "repo")
@@ -19,12 +24,7 @@ class TestPublish:
 
         eq_(
             contributors,
-            [
-                {
-                    "name": "hello world",
-                    "url": "https://api.github.com/users/howdy",
-                }
-            ],
+            [{"name": "hello world", "html_url": ""}],
         )
 
     @patch("gease.contributors.Api.get_public_api")
@@ -33,7 +33,9 @@ class TestPublish:
             {"login": "howdy", "url": "https://api.github.com/users/howdy"}
         ]
         fake_api.return_value = MagicMock(
-            get=MagicMock(side_effect=[sample_reply, {"name": None}])
+            get=MagicMock(
+                side_effect=[sample_reply, {"name": None, "html_url": ""}]
+            )
         )
 
         repo = EndPoint("test", "repo")
@@ -41,5 +43,5 @@ class TestPublish:
 
         eq_(
             contributors,
-            [{"name": "howdy", "url": "https://api.github.com/users/howdy"}],
+            [{"name": "howdy", "html_url": ""}],
         )

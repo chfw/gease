@@ -4,6 +4,13 @@ releases:
   - changes:
       - action: Updated
         details:
+          - "return all user details per github user api"
+          - "handle 403 and throw out unknown status code"
+    date: 21.09.2020
+    version: 0.0.8
+  - changes:
+      - action: Updated
+        details:
           - "raise UrlNotFound when request a non-existent url"
     date: 28.08.2020
     version: 0.0.7

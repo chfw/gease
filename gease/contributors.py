@@ -59,8 +59,8 @@ class EndPoint(object):
             user_details = self.__client.get(user["url"])
             user_name = user_details["name"]
             if user_name is None:
-                user_name = user["login"]
-            contributors.append({"name": user_name, "url": user["url"]})
+                user_details["name"] = user["login"]
+            contributors.append(user_details)
         return contributors
 
 
