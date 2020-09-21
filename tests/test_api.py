@@ -3,11 +3,11 @@ from nose.tools import raises
 
 from gease.rest import Api
 from gease.exceptions import (
+    Forbidden,
     UrlNotFound,
     RepoNotFoundError,
     ReleaseExistException,
     AbnormalGithubResponse,
-    Forbidden
 )
 
 SAMPLE_422_ERROR = {
@@ -102,7 +102,7 @@ class TestApi:
         api.get("s")
 
     @raises(Forbidden)
-    def test_get_unknown_url(self):
+    def test_get_forbidden_url(self):
         self.fake_session.return_value = MagicMock(
             get=MagicMock(side_effect=Forbidden)
         )
