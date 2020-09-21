@@ -7,6 +7,7 @@ from gease.exceptions import (
     RepoNotFoundError,
     ReleaseExistException,
     AbnormalGithubResponse,
+    Forbidden
 )
 
 SAMPLE_422_ERROR = {
@@ -96,6 +97,14 @@ class TestApi:
     def test_get_unknown_url(self):
         self.fake_session.return_value = MagicMock(
             get=MagicMock(side_effect=UrlNotFound)
+        )
+        api = Api("test")
+        api.get("s")
+
+    @raises(Forbidden)
+    def test_get_unknown_url(self):
+        self.fake_session.return_value = MagicMock(
+            get=MagicMock(side_effect=Forbidden)
         )
         api = Api("test")
         api.get("s")
