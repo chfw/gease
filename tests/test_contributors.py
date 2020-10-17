@@ -52,7 +52,7 @@ class TestPublish:
 
     @patch("gease.contributors.get_token")
     @patch("gease.contributors.Api.get_api")
-    def test_no_names(self, fake_api, _):
+    def test_private_api(self, fake_api, _):
         sample_reply = [
             {"login": "howdy", "url": "https://api.github.com/users/howdy"}
         ]

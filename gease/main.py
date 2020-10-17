@@ -61,7 +61,7 @@ def main():
         fatal(str(e))
     except exceptions.NoGeaseConfigFound as e:
         fatal(str(e))
-    except exceptions.ReleaseExistException as e:
+    except exceptions.ReleaseExistException:
         fatal("Release %s exists" % tag)
     except KeyError as e:
         fatal("Key %s is not found" % str(e))
