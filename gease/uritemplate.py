@@ -4,7 +4,7 @@
 
     template github uri with variables
 
-    :copyright: (c) 2017 by Onni Software Ltd.
+    :copyright: (c) 2017-2020 by Onni Software Ltd.
     :license: MIT License, see LICENSE for more details
 
 """
@@ -80,7 +80,7 @@ class UriTemplate(object):
 
 
 def extract_variables(url_template_string):
-    results = re.findall("\{/([^}]+)\}", url_template_string)
+    results = re.findall(r"\{/([^}]+)\}", url_template_string)
     return results
 
 

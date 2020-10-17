@@ -1,6 +1,6 @@
 """
     contributors
-    ~~~~~~
+    ~~~~~~~~~~~~~
     get a list of contributors
 
     :copyright: (c) 2020 by Onni Software Ltd.
@@ -14,7 +14,7 @@ import crayons
 import gease.utils as utils
 import gease.constants as constants
 import gease.exceptions as exceptions
-from gease.rest import Api
+from gease.rest import Api, get_token
 from gease._version import __version__
 from gease.uritemplate import UriTemplate
 
@@ -46,7 +46,11 @@ class EndPoint(object):
         self.__template = UriTemplate(REPO_URL)
         self.__template.owner = owner
         self.__template.repo = repo
-        self.__client = Api.get_public_api()
+        try:
+            get_token()
+            self.__client = Api.get_api()
+        except FileNotFoundError:
+            self.__client = Api.get_public_api()
 
     @property
     def url(self):
