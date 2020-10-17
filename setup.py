@@ -32,7 +32,7 @@ except (ValueError, UnicodeError, locale.Error):
 
 NAME = "gease"
 AUTHOR = "C. W."
-VERSION = "0.0.8"
+VERSION = "0.0.9"
 EMAIL = "wangc_2011@hotmail.com"
 LICENSE = "MIT"
 ENTRY_POINTS = {
@@ -45,7 +45,7 @@ DESCRIPTION = (
     "simply makes a git release using github api v3"
 )
 URL = "https://github.com/moremoban/gease"
-DOWNLOAD_URL = "%s/archive/0.0.8.tar.gz" % URL
+DOWNLOAD_URL = "%s/archive/0.0.9.tar.gz" % URL
 FILES = ["README.rst", "CHANGELOG.rst"]
 KEYWORDS = [
     "python",
@@ -78,13 +78,14 @@ EXTRAS_REQUIRE = {
 }
 # You do not need to read beyond this line
 PUBLISH_COMMAND = "{0} setup.py sdist bdist_wheel upload -r pypi".format(sys.executable)
-GS_COMMAND = ("gs gease v0.0.8 " +
-              "Find 0.0.8 in changelog for more details")
+HERE = os.path.abspath(os.path.dirname(__file__))
+
+GS_COMMAND = ("gs gease v0.0.9 " +
+              "Find 0.0.9 in changelog for more details")
 NO_GS_MESSAGE = ("Automatic github release is disabled. " +
                  "Please install gease to enable it.")
 UPLOAD_FAILED_MSG = (
     'Upload failed. please run "%s" yourself.' % PUBLISH_COMMAND)
-HERE = os.path.abspath(os.path.dirname(__file__))
 
 
 class PublishCommand(Command):
@@ -129,7 +130,6 @@ class PublishCommand(Command):
 SETUP_COMMANDS.update({
     "publish": PublishCommand
 })
-
 
 def has_gease():
     """
