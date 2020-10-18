@@ -49,7 +49,7 @@ class EndPoint(object):
         try:
             get_token()
             self.__client = Api.get_api()
-        except FileNotFoundError:
+        except exceptions.NoGeaseConfigFound:
             self.__client = Api.get_public_api()
 
     @property
