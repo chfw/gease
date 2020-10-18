@@ -4,9 +4,9 @@ organisation: "moremoban"
 author: "C. W."
 contact: "wangc_2011@hotmail.com"
 company: "Onni Software Ltd."
-version: "0.0.9"
-current_version: 0.0.9
-release: "0.0.9"
+version: "0.0.10"
+current_version: 0.0.10
+release: "0.0.10"
 copyright_year: 2017-2020
 command_line_interface: gease
 entry_point: "gease.main:main"

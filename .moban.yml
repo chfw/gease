@@ -18,3 +18,4 @@ targets:
   - Makefile: Makefile.jj2
   - format.sh: format.sh.jj2
   - lint.sh: lint.script.jj2
+  - MANIFEST.in: MANIFEST.in.jj2
