@@ -4,6 +4,12 @@ releases:
   - changes:
       - action: Updated
         details:
+          - "`#3`: include license, tests and docs in the package"
+    date: 18.10.2020
+    version: 0.0.10
+  - changes:
+      - action: Updated
+        details:
           - "return all user details using github token if exist. otherwise use public api under quota"
     date: 17.10.2020
     version: 0.0.9
