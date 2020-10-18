@@ -9,7 +9,7 @@ class TestPublish:
     @patch("gease.contributors.get_token")
     @patch("gease.contributors.Api.get_public_api")
     def test_all_contributors(self, fake_api, get_token):
-        get_token.side_effect = [FileNotFoundError]
+        get_token.side_effect = [NoGeaseConfigFound]
         sample_reply = [
             {"login": "howdy", "url": "https://api.github.com/users/howdy"}
         ]
@@ -32,7 +32,7 @@ class TestPublish:
 
     @patch("gease.contributors.get_token")
     @patch("gease.contributors.Api.get_public_api")
-    def test_no_names(self, fake_api, get_token):
+    def test_private_api(self, fake_api, get_token):
         get_token.side_effect = [NoGeaseConfigFound]
         sample_reply = [
             {"login": "howdy", "url": "https://api.github.com/users/howdy"}
@@ -53,7 +53,7 @@ class TestPublish:
 
     @patch("gease.contributors.get_token")
     @patch("gease.contributors.Api.get_api")
-    def test_private_api(self, fake_api, _):
+    def test_no_names(self, fake_api, _):
         sample_reply = [
             {"login": "howdy", "url": "https://api.github.com/users/howdy"}
         ]
