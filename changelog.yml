@@ -4,6 +4,12 @@ releases:
   - changes:
       - action: Updated
         details:
+          - "`#14`: failed to use public apis"
+    date: 18.10.2020
+    version: 0.0.11
+  - changes:
+      - action: Updated
+        details:
           - "`#3`: include license, tests and docs in the package"
     date: 18.10.2020
     version: 0.0.10
